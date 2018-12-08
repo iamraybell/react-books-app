@@ -4,7 +4,7 @@ import { BookList } from './bookList';
 export class Search extends React.Component  {
     state = {
         query: '',
-        currentShownBooks: []
+        currentShownBooks: [],
     }
 
     handleInputChange(input) {
@@ -12,7 +12,7 @@ export class Search extends React.Component  {
             (prevState => {
             return {
                     ...prevState,
-                    query: input
+                    query: input,
                 } 
             }
             ),
@@ -37,11 +37,10 @@ export class Search extends React.Component  {
                 })
             })
         }else{
-
                 this.setState((prevState) =>{
                     return {
                         ...prevState,
-                        currentShownBooks: []
+                        currentShownBooks: [],
                     }
                  })
         }

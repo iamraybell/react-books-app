@@ -50,7 +50,6 @@ class BooksApp extends React.Component {
     this.getAllBooksOnShelves(this.cacheAll)
   }
 
-
 changeShelf =(book, newShelf)=>{
   let catergories = {
     currentlyReading: this.state.currentlyReading,
