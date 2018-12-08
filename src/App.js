@@ -59,12 +59,14 @@ changeShelf =(book, newShelf)=>{
 
   if(book.shelf && book.shelf!=='none'){
     catergories[book.shelf] = catergories[book.shelf].filter(curBook=> {
-      return curBook.id!== book.id
+      return curBook.id!== book.id;
     })
   }
 
-  book.shelf = newShelf
-  catergories[newShelf].push(book)
+  book.shelf = newShelf;
+  if(newShelf!== 'none'){
+    catergories[newShelf].push(book)
+  }
   
   this.setState(prevState=>{
     return {

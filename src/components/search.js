@@ -85,6 +85,7 @@ export class Search extends React.Component  {
                     this.state.currentShownBooks.length > 0 &&(
                         <BookList
                             books={this.state.currentShownBooks}
+                            changeShelf={this.props.changeShelf}
                         />
                     )
                 }

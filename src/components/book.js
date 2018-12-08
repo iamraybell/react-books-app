@@ -19,7 +19,6 @@ export class Book extends React.Component {
         if(this.state.shelf === newShelf){
             return;
         }
-
         BooksAPI.update({id:this.props.id},  newShelf).then((book)=>{
             this.props.changeShelf(this.props.book, newShelf); 
         }) 
