@@ -1,9 +1,6 @@
 import React from 'react';
 import { BookList } from './bookList';
 
-
-
-
 export class Shelves extends React.Component{
 
     render() {

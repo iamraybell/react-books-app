@@ -19,7 +19,6 @@ class BooksApp extends React.Component {
     })
   } 
 
-
   cacheAll =(bookArr)=> {
     let cache ={}
     let catergories = {
@@ -58,11 +57,13 @@ changeShelf =(book, newShelf)=>{
     read: this.state.read,
     wantToRead: this.state.wantToRead,
   }
+
   if(book.shelf && book.shelf!=='none'){
     catergories[book.shelf] = catergories[book.shelf].filter(curBook=> {
       return curBook.id!== book.id
     })
   }
+
   book.shelf = newShelf
   catergories[newShelf].push(book)
   
@@ -76,8 +77,6 @@ changeShelf =(book, newShelf)=>{
   })
   return newShelf;
 }
-
-
 
   render() {
     return (

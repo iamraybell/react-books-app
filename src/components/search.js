@@ -7,7 +7,6 @@ export class Search extends React.Component  {
         currentShownBooks: []
     }
 
-
     handleInputChange(input) {
         this.setState(
             (prevState => {
@@ -94,6 +93,5 @@ export class Search extends React.Component  {
             </div>
           </div>
         )
-    }
-    
+    } 
 }

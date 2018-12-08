@@ -3,26 +3,25 @@ import * as BooksAPI from '../BooksAPI';
 
 export class Book extends React.Component {
     state= {
-        shelf: 'None'
+        shelf: 'None',
     }
 
     componentDidMount(){
         this.setState((prevState)=> {
             return {
                 ...prevState,
-                shelf: this.props.shelf
+                shelf: this.props.shelf,
             }
         })
     }
 
     handleUpdate(newShelf){
-        console.log(this.state.shelf, newShelf)
         if(this.state.shelf === newShelf){
             return;
         }
-        
+
         BooksAPI.update({id:this.props.id},  newShelf).then((book)=>{
-            this.props.changeShelf(this.props.book, newShelf) 
+            this.props.changeShelf(this.props.book, newShelf); 
         }) 
     }
 
@@ -46,6 +45,5 @@ export class Book extends React.Component {
             <div className="book-authors">{ this.props.author }</div>
             </div>
         )
-
     }
 }
