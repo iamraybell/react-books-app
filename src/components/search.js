@@ -1,6 +1,5 @@
 import React from 'react';
 import { BookList } from './bookList';
-import { get } from '../BooksAPI';
 
 export class Search extends React.Component  {
     state = {

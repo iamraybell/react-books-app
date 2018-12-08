@@ -3,17 +3,14 @@ import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import { Search } from './components/search';
-import { Book } from './components/book';
-
+import { Shelves } from './components/shelves';
 
 class BooksApp extends React.Component {
   state = {
     cacheByIds:{},
-    catergories:{
-      currentlyReading:[],
-      read:[],
-      wantToRead:[],
-    }
+    currentlyReading:[],
+    read:[],
+    wantToRead:[],
   }
 
   getAllBooksOnShelves(cb) {
@@ -39,7 +36,6 @@ class BooksApp extends React.Component {
         catergories.read.push(book);
       }
       if(book.shelf === 'currentlyReading'){
-        console.log('shelf match')
         catergories.currentlyReading.push(book);
       }
     }
@@ -47,7 +43,7 @@ class BooksApp extends React.Component {
       return {
         ...prevState,
         cacheByIds: cache,
-        catergories: catergories,
+        ...catergories,
       }
     })
   }
@@ -56,16 +52,54 @@ class BooksApp extends React.Component {
   }
 
 
+changeShelf =(book, newShelf)=>{
+  let catergories = {
+    currentlyReading: this.state.currentlyReading,
+    read: this.state.read,
+    wantToRead: this.state.wantToRead,
+  }
+  if(book.shelf && book.shelf!=='none'){
+    catergories[book.shelf] = catergories[book.shelf].filter(curBook=> {
+      return curBook.id!== book.id
+    })
+  }
+  book.shelf = newShelf
+  catergories[newShelf].push(book)
+  
+  this.setState(prevState=>{
+    return {
+      ...prevState,
+      wantToRead: catergories.wantToRead,
+      read: catergories.read,
+      currentlyReading: catergories.currentlyReading,
+    }
+  })
+  return newShelf;
+}
+
+
+
   render() {
     return (
       <div className="app">
         {/* <Route  path='/' component ={ShelfList}/> */}
-        <Route  path='/search' render={() =>
-          (
+        <Route  exact={true} path='/search' render={() =>
+          ( 
             <Search
               search = {BooksAPI.search}
               cacheByIds ={this.state.cacheByIds}
               catergories = {this.state.catergories}
+              changeShelf={this.changeShelf}
+            />
+          )
+        }/>
+        <Route  exact={true} path='/' render={() =>
+          ( 
+            <Shelves
+              currentlyReading={this.state.currentlyReading}
+              wantToRead={this.state.wantToRead}
+              read={this.state.read}
+              changeShelf={this.changeShelf}
             />
           )
         }/>

@@ -13,12 +13,17 @@ export class Book extends React.Component {
                 shelf: this.props.shelf
             }
         })
-        console.log(this.state.shelf,'dsd')
     }
 
-    handleUpdate(shelf){
-        console.log('hi')
-        BooksAPI.update({id:this.props.id},  shelf)
+    handleUpdate(newShelf){
+        console.log(this.state.shelf, newShelf)
+        if(this.state.shelf === newShelf){
+            return;
+        }
+        
+        BooksAPI.update({id:this.props.id},  newShelf).then((book)=>{
+            this.props.changeShelf(this.props.book, newShelf) 
+        }) 
     }
 
     render() {
