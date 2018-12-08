@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import { Search } from './components/search';
@@ -47,7 +47,7 @@ class BooksApp extends React.Component {
     })
   }
   componentWillMount() {
-    this.getAllBooksOnShelves(this.cacheAll)
+    this.getAllBooksOnShelves(this.cacheAll);
   }
 
 changeShelf =(book, newShelf)=>{
@@ -65,7 +65,7 @@ changeShelf =(book, newShelf)=>{
 
   book.shelf = newShelf;
   if(newShelf!== 'none'){
-    catergories[newShelf].push(book)
+    catergories[newShelf].push(book);
   }
   
   this.setState(prevState=>{
@@ -82,30 +82,33 @@ changeShelf =(book, newShelf)=>{
   render() {
     return (
       <div className="app">
-        {/* <Route  path='/' component ={ShelfList}/> */}
-        <Route  exact={true} path='/search' render={() =>
-          ( 
-            <Search
-              search = {BooksAPI.search}
-              cacheByIds ={this.state.cacheByIds}
-              catergories = {this.state.catergories}
-              changeShelf={this.changeShelf}
-            />
-          )
-        }/>
-        <Route  exact={true} path='/' render={() =>
-          ( 
-            <Shelves
-              currentlyReading={this.state.currentlyReading}
-              wantToRead={this.state.wantToRead}
-              read={this.state.read}
-              changeShelf={this.changeShelf}
-            />
-          )
-        }/>
+        <BrowserRouter>
+          <Switch>
+            <Route  exact={true} path='/search' render={() =>
+              ( 
+                <Search
+                  search = {BooksAPI.search}
+                  cacheByIds ={this.state.cacheByIds}
+                  catergories = {this.state.catergories}
+                  changeShelf={this.changeShelf}
+                />
+              )
+            }/>
+            <Route  exact={true} path='/' render={() =>
+              ( 
+                <Shelves
+                  currentlyReading={this.state.currentlyReading}
+                  wantToRead={this.state.wantToRead}
+                  read={this.state.read}
+                  changeShelf={this.changeShelf}
+                />
+              )
+            }/>
+        </Switch>
+      </BrowserRouter>
       </div>
     )
   }
 }
 
-export default BooksApp
+export default BooksApp;
