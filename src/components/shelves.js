@@ -1,7 +1,9 @@
 import React from 'react';
 import { BookList } from './bookList';
+import { withRouter } from 'react-router'
 
-export class Shelves extends React.Component{
+
+export class ShelvesClass extends React.Component{
 
     render() {
         return (
@@ -32,8 +34,13 @@ export class Shelves extends React.Component{
                             changeShelf={this.props.changeShelf}
                         />
                     </div>
-                </div>  
+                </div>
+                <div className="open-search">
+                    <button onClick={() => this.props.history.push('/search') }>Add a book</button>
+                </div>
             </div>        
         )
     }
 }
+
+export const Shelves = withRouter(ShelvesClass);
