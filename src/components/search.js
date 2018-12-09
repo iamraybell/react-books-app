@@ -6,6 +6,7 @@ class SearchClass extends React.Component  {
     state = {
         query: '',
         currentShownBooks: [],
+        error:false,
     }
 
     handleInputChange(input) {
@@ -25,6 +26,16 @@ class SearchClass extends React.Component  {
         if(this.state.query && this.state.query.trim()){
             this.props.search(this.state.query)
             .then(books => {
+                if(books.error){
+                    this.setState((prevState) =>{
+                        return {
+                            ...prevState,
+                            currentShownBooks: [],
+                            error:true,
+                        }
+                     })
+                     return;
+                }
                 for(let book of books){
                     if(this.props.cacheByIds[book.id]){
                         book.shelf = this.props.cacheByIds[book.id].shelf
@@ -33,7 +44,8 @@ class SearchClass extends React.Component  {
                 this.setState((prevState) =>{
                    return {
                        ...prevState,
-                       currentShownBooks: books
+                       currentShownBooks: books,
+                       error:false,
                    }
                 })
             })
@@ -42,6 +54,7 @@ class SearchClass extends React.Component  {
                     return {
                         ...prevState,
                         currentShownBooks: [],
+                        error:false,
                     }
                  })
         }
@@ -65,12 +78,12 @@ class SearchClass extends React.Component  {
             </div>
             <div className="search-books-results">
                 {
-                    this.state.currentShownBooks.error &&(
+                    this.state.error &&(
                         <p>No items Match your query. Please try again.</p>
                     )
                 }
                 {
-                    this.state.currentShownBooks.length === 0 &&(
+                    !this.state.currentShownBooks.length && !this.state.error &&(
                         <p>Please type into the search book to begin a search.</p>
                     )
                 }

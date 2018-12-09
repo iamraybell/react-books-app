@@ -12,8 +12,8 @@ This is the first project created for Udacity's React Nanodegree program. One fu
 
 ## Getting started:
 * Clone project from https://github.com/iamraybell/react-books-app
-* install all project dependencies with `npm install`
-* start the development server with `npm start`
+* Install all project dependencies with `npm install`
+* Start the development server with `npm start`
 * Open browser, and run localhost:3000
 * Have fun!
 

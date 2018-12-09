@@ -13,7 +13,7 @@ export const BookList = (props) => {
                             shelf={book.shelf?book.shelf:'none'}
                             author={book.author}
                             title={book.title}
-                            image={book.imageLinks.thumbnail}
+                            image={book.imageLinks?book.imageLinks.thumbnail: 'none'}
                             changeShelf={props.changeShelf}
                             
                         />
